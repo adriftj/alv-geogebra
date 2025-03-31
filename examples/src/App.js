@@ -5,7 +5,6 @@ import './style.css';
 function App() {
   const [position, setPosition] = useState('Position A: (?,?)');
   const [appLoaded, setAppLoaded] = useState(false);
-  const [easterEgg, setEasterEgg] = useState(false);
   const [width, setWidth] = useState(600);
 
   function clickHandler() {
@@ -39,43 +38,21 @@ function App() {
     // });
     app.registerUpdateListener(positionA);
 
-    app.setPerspective('G');
-    app.setGridVisible(true);
-    app.setVisible('pic2', false);
+    //app.setPerspective('G');
+    //app.setGridVisible(true);
     console.log('Geogebra Listeners registered');
     setAppLoaded(true);
   }
 
-  function onEggHandler() {
-    const app = window.appId;
-    app.setVisible('pic2', !easterEgg);
-    setEasterEgg(!easterEgg);
-  }
-
-  function onChivron() {
-    window.history.back();
-  }
-
   return (
     <div className="App">
-      <div className="top-left">
-        <button
-          className="mdc-button foo-button"
-          title="back"
-          onClick={onChivron}
-        >
-          <div className="mdc-button__ripple"></div>
-          <span className="material-icons">chevron_left</span>
-        </button>
-      </div>
-
       <div className="demo">
-        <h1>react-geogebra Demo</h1>
+        <h1>alv-geogebra Demo</h1>
         set Point 'A' and look what happens if you move it
         <Geogebra
           debug
           id="appId"
-          material_id="xu9j3sgq"
+          filename="t1.ggb"
           appName="graphing"
           width={width}
           height="400"
@@ -101,14 +78,6 @@ function App() {
           </button>
         </div>
         {position}
-      </div>
-
-      <div className="egg">
-        <button
-          className="egg-btn"
-          onClick={onEggHandler}
-          title="wait!, what's that?"
-        ></button>
       </div>
     </div>
   );

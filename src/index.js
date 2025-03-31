@@ -64,7 +64,7 @@ const Geogebra = (props) => {
     LoadComponent = ({ children }) => <h3>{children}</h3>;
   }
 
-  const url = 'https://geogebra.org/apps/deployggb.js';
+  const url = 'GeoGebra/deployggb.js';
   const [deployggbLoaded, setDeployggbLoaded] = useState(false);
   const [loading, setLoading] = useState(true);
   const [watchPropsChange, setWatchPropsChange] = useState(false);
@@ -120,6 +120,7 @@ const Geogebra = (props) => {
       const parameter = JSON.parse(JSON.stringify(refProps.current));
       parameter.appletOnLoad = onAppletReady;
       const ggbApp = new window.GGBApplet(parameter, true);
+      ggbApp.setHTML5Codebase('GeoGebra/HTML5/5.0/web3d/');
       ggbApp.inject(id);
       setLoading(false);
       setWatchPropsChange(false);

@@ -1,32 +1,18 @@
 # React GeoGebra Component
 
-Hi Everyone. Welcome to my first published package for [react.js](https://reactjs.org/).
 I'm going to show you an easy way to embed [GeoGebra](https://www.geogebra.org/) Maths App to your React project.<br />
 This is not an official GeoGebra-project.
 
-[![NPM](https://nodei.co/npm/react-geogebra.png?compact=true)](https://nodei.co/npm/react-geogebra/)
-
-## Demo
-
-Try the demo: https://pfaffmann.github.io/react-geogebra
-
-## Installation
-
-In order to start using react-geogebra ensure you install it inside your react project folder as shown below:
+## Installation & Example
 
 ```
-npm install react-geogebra
-```
-
-Now you can import the package:
-
-```jsx
-import Geogebra from 'react-geogebra';
+npm install
+npm run start
 ```
 
 ## Basic usage
 
-and use it in your application. For example:
+You can use it in your application easily. For example:
 
 ```jsx
 ...
@@ -102,7 +88,7 @@ Otherwise the _applet object_ will be undefined.
 You can define a function and give a reference to the 'appletOnLoad' prop. This function is called as soon as the GeoGebra App is completely loaded.
 
 ```jsx
-function afterAppIsLoaded(){
+function afterAppIsLoaded() {
     //This function will be called after the GeoGebra App is completly loaded.
 }
 <Geogebra appletOnLoad={afterAppIsLoaded}>
@@ -191,13 +177,3 @@ The GeoGebra App can call functions whenever an event occurs. To register event 
 
 Check out the GeoGebra license agreement on their webpage. <br>
 https://www.geogebra.org/license
-
-## Support Me?
-
-just buy me a coffee ☕️ <br>
-<a href="https://www.buymeacoffee.com/saunaaa" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
-
-<hr>
-
-The tutorial used to deploy and publish the package can be found [here](https://medium.com/dailyjs/building-a-react-component-with-webpack-publish-to-npm-deploy-to-github-guide-6927f60b3220). <br>
-I hope you are going to enjoy **react-geogebra** in your projects 👩‍💻👨‍💻🧑‍💻.
