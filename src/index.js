@@ -1,72 +1,15 @@
 import React, { useEffect, useState, useRef } from 'react';
 
-const loadScript = (url, id) =>
-  new Promise((resolve, reject) => {
-    let ready = false;
-    if (!document) {
-      reject(new Error('Document was not defined'));
-    }
-
-    const tag = document.getElementsByTagName('script')[0];
-    const script = document.createElement('script');
-
-    script.crossOrigin = '';
-    script.id = `${id}-script`;
-    script.type = 'text/javascript';
-    script.src = url;
-    script.onreadystatechange = () => {
-      if (!ready) {
-        ready = true;
-        resolve(script);
-      }
-    };
-    script.onload = script.onreadystatechange;
-
-    script.onerror = (msg) => {
-      reject(new Error('Error loading script.'));
-    };
-
-    script.onabort = (msg) => {
-      reject(new Error('Script loading aborted.'));
-    };
-
-    if (tag.parentNode != null) {
-      //tag.parentNode.insertBefore(script, tag);
-      tag.parentNode.insertBefore(script, tag);
-    }
-  });
-
-const removeScript = (id) => {
-  new Promise((resolve, reject) => {
-    const script = document.getElementById(`${id}-script`);
-    if (script) {
-      script.remove();
-      resolve();
-    } else {
-      reject(new Error('Error removing script.'));
-    }
-  });
-};
-
 const Geogebra = (props) => {
   const refProps = useRef(props);
 
-  let { id, LoadComponent, onReady, appletOnLoad, debug, reloadOnPropChange } =
+  let { id, onReady, appletOnLoad, debug, reloadOnPropChange } =
     refProps.current;
-  if (!id) {
+  if (!id)
     id = 'ggb-applet';
-  }
-  if (!debug) {
+  if (!debug)
     debug = false;
-  }
-  //If a JSX Component is not given as a prop, use h3 with children
-  if (!LoadComponent) {
-    LoadComponent = ({ children }) => <h3>{children}</h3>;
-  }
 
-  const url = 'GeoGebra/deployggb.js';
-  const [deployggbLoaded, setDeployggbLoaded] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [watchPropsChange, setWatchPropsChange] = useState(false);
   //gets called by GeoGebra after the Applet is ready
   const onAppletReady = () => {
@@ -75,25 +18,6 @@ const Geogebra = (props) => {
     debug && console.log(`Applet with id "${id}" is ready`);
   };
 
-  useEffect(() => {
-    !deployggbLoaded &&
-      loadScript(url, id)
-        .then((script) => {
-          debug &&
-            console.log(`script from "${url}" succesfull loaded into the DOM`);
-          setDeployggbLoaded(true);
-        })
-        .catch((err) => console.error(err));
-
-    return () => {
-      setDeployggbLoaded(false);
-      //removeScript(id);
-      const tag = document.getElementById(`${id}-holder`);
-      if (tag) {
-        tag.lastChild.textContent = '';
-      }
-    };
-  }, []);
   if (reloadOnPropChange) {
     useEffect(() => {
       const propsChanged = Object.keys(props).map((key) => {
@@ -122,25 +46,18 @@ const Geogebra = (props) => {
       const ggbApp = new window.GGBApplet(parameter, true);
       ggbApp.setHTML5Codebase('GeoGebra/HTML5/5.0/web3d/');
       ggbApp.inject(id);
-      setLoading(false);
       setWatchPropsChange(false);
       debug &&
         console.log(`applet with id "${id}" succesfull injected into the DOM`);
     }
     return () => {
-      const tag = document.getElementById(`${id}-holder`);
-      if (tag) {
-        tag.lastChild.textContent = '';
-      }
+      const tag = document.getElementById(id);
+      if (tag)
+        tag.replaceChildren();
     };
-  }, [deployggbLoaded, watchPropsChange]);
+  }, [watchPropsChange]);
 
-  return (
-    <div id={`${id}-holder`}>
-      {loading && <LoadComponent>Loading</LoadComponent>}
-      <div id={id}></div>
-    </div>
-  );
+  return (<div id={id}></div>);
 };
 
 Geogebra.defaultProps = {
