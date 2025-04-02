@@ -1,6 +1,6 @@
 export interface Props {
   id: string;
-  appletOnLoad: () => void;
+  appletOnLoad?: () => void;
   appName?: string;
   width?: number;
   height?: number;
@@ -52,18 +52,7 @@ export interface Props {
   debug?: boolean;
   reloadOnPropChange?: boolean;
   onReady?: () => void;
-  LoadComponent?: () => JSX.Element;
 }
 declare function Geogebra(props: Props): JSX.Element;
-declare namespace Geogebra {
-  var defaultProps: {
-    appName: string;
-    width: number;
-    height: number;
-    showToolBar: boolean;
-    showAlgebraInput: boolean;
-    showMenuBar: boolean;
-    reloadOnPropChange: boolean;
-  };
-}
+
 export default Geogebra;
