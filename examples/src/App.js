@@ -48,16 +48,19 @@ function App() {
     <div className="App">
       <div className="demo">
         <h1>alv-geogebra Demo</h1>
-        set Point 'A' and look what happens if you move it
+        <div>set Point 'A' and look what happens if you move it</div>
         <Geogebra
           debug
           id="appId"
           filename="t1.ggb"
-          appName="graphing"
-          width={width}
-          height="400"
+          appName="suite"
+          //width={1800}
+          //height={800}
+          showToolBar={true}
+          showMenuBar={true}
           enableUndoRedo="false"
           appletOnLoad={registerGeogebraListeners}
+          code={'P = (3,1)\nQ = (0,0)\nR = (1,4)\nc1 = Circle(P,Q,R)\nPolygon(P,Q,R)'}
         />
         <div className="button-row">
           <button

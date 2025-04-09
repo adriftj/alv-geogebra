@@ -8,24 +8,28 @@ export interface Props {
   filename?: string;
   ggbBase64?: string;
   borderColor?: string;
+  borderRadius?: number;
   enableRightClick?: boolean;
   enableLabelDrags?: boolean;
   enableShiftDragZoom?: boolean;
   showZoomButtons?: boolean;
   errorDialogsActive?: boolean;
-  showToolBar?: boolean;
-  showAlgebraInput?: boolean;
   showMenuBar?: boolean;
+  showToolBar?: boolean;
   showToolBarHelp?: boolean;
   customToolBar?: string;
+  showAlgebraInput?: boolean;
   showResetIcon?: boolean;
   language?: string;
   country?: string;
   allowStyleBar?: boolean;
+  randomize?: boolean;
+  randomSeed?: number;
   useBrowserForJS?: boolean;
   showLogging?: boolean;
   capturingThreshold?: number;
   enableFileFeatures?: boolean;
+  enableUndoRedo?: boolean;
   perspective?: string;
   enable3d?: boolean;
   enableCAS?: boolean;
@@ -47,11 +51,17 @@ export interface Props {
   editorBackgroundColor?: string;
   editorForegroundColor?: string;
   textmode?: boolean;
+  showKeyboardOnFocus?: boolean|'auto';
   keyboardType?: string;
+  transparentGraphics?: boolean;
+  disableJavaScript?: boolean;
+  detachedKeyboardParent?: boolean;
   //custom props
   debug?: boolean;
   reloadOnPropChange?: boolean;
   onReady?: () => void;
+  code?: string;
+  float?: string;
 }
 declare function Geogebra(props: Props): JSX.Element;
 
